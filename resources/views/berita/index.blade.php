@@ -1,0 +1,41 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Berita</div>
+                <div class="card-body">
+                    <a href="{!! route('berita.create') !!}">Tambah Data</a>
+                <table class="table table-bordered">
+                    <thead class="bg-danger">
+                        <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Isi</th>
+                        <th scope="col">Kategori Berita Id</th>
+                        <th scope="col">User_id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach( $berita as $item)
+                        <tr>
+                        <td>{!! $item->id !!}</td>
+                        <td>{!! $item->judul !!}</td>
+                        <td>{!! $item->isi !!}</td>
+                        <td>{!! $item->kategori_berita_id !!}</td>
+                        <td>{!! $item->users_id !!}</td>
+                        <td><a href="{!! route('berita.show',[$item->id]) !!}">Lihat</a></td>
+                        <td><a href="{!! route('berita.edit',[$item->id]) !!}" class="btn btn-primary">edit</a>
+                        </td>
+                        <td>
+                                {!! Form::open(['route' => ['berita.destroy',$item->id], 'method' => 'delete']); !!}
+                                {!! Form::submit('Hapus',['class'=>'btn btn-danger']); !!}
+                                {!! Form::close() !!}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+		@endsection
